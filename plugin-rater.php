@@ -26,13 +26,13 @@ add_filter( 'manage_plugins_columns', 'plugin_rater_add_plugins_columns' );
 function plugin_rater_manage_plugins_column( $column_name, $plugin_file, $plugin_data ) {
 	if ( isset( $plugin_data['slug'] ) && $plugin_data['slug'] ) {
 		printf(
-			'<div class="plugin-rate" data-slug="%s" style="white-space: nowrap;"></div>',
+			'<div class="plugin-rate" data-slug="%s" style="white-space: nowrap;"><div class="star-rating star-default"><div class="star star-empty"></div><div class="star star-empty"></div><div class="star star-empty"></div><div class="star star-empty"></div><div class="star star-empty"></div></div></div>',
 			esc_attr( $plugin_data['slug'] )
 		);
 		printf(
 			'<div class="plugin-rate-url" style="white-space: nowrap;"><a href="%s">%s</a></div>',
 			esc_url( 'https://wordpress.org/support/view/plugin-reviews/' . $plugin_data['slug'] ),
-			esc_html( __( "Let's Rate!!", "plugin-rater" ) )
+			esc_html( __( "Add your review!", "plugin-rater" ) )
 		);
 	}
 }
@@ -88,7 +88,7 @@ add_action( 'wp_ajax_plugin_rater', 'wp_ajax_plugin_rater' );
 
 
 /*
- * Output JavaScript at wp-admin/plugins.php
+ * Output JavaScript to footer at wp-admin/plugins.php
  * @param  none
  * @return none
  * @since  0.1
@@ -114,3 +114,23 @@ function plugin_rater_admin_footer() {
 }
 
 add_action( 'admin_footer-plugins.php', 'plugin_rater_admin_footer' );
+
+
+/*
+ * Output style into head at wp-admin/plugins.php
+ * @param  none
+ * @return none
+ * @since  0.1
+ */
+function plugin_rater_admin_head() {
+?>
+<style>
+.star-default .star-empty
+{
+	color: #dedede;
+}
+</style>
+<?php
+}
+
+add_action( 'admin_head-plugins.php', 'plugin_rater_admin_head' );
