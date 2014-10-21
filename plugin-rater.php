@@ -4,7 +4,7 @@ Plugin Name: Plugin Rater
 Plugin URI: http://natasha.jp/
 Description: It makes you access to plugins pages of wordpress.org easier.
 Author: natashanatashanatashanatasha
-Contributors: natashanatashanatashanatasha, hissy
+Contributors: natashanatashanatashanatasha, hissy, Kushimoto no Ojisan
 Version: 0.1
 Author URI: http://natasha.jp/
 License: GPL2+
@@ -104,7 +104,7 @@ function plugin_rater_admin_footer() {
 			'nonce':  '<?php echo wp_create_nonce( PLUGIN_RATER_NONCE ); ?>',
 			'action': 'plugin_rater'
 		};
-		$.get('/wp-admin/admin-ajax.php', args, function(data){
+		$.get('<?php echo admin_url(); ?>admin-ajax.php', args, function(data){
 			$(self).html(data);
 		}, 'html');
 	});
